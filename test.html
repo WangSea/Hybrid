@@ -1,17 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
 </head>
 <body>
-  <button id="test">test</button>
+<button id="showRewardAd">showRewardAd</button>
+<button id="showInterstitialAd">showInterstitialAd</button>
 </body>
 <script>
-  const test = document.getElementById('test')
-  test.addEventListener('click', () => {
-    window.client.addTickets("16293", "100")
+  // 加载激励视频广告
+  createAd(1);
+  // 延时1s后加载插屏广告
+  setTimeout(function(){
+    createAd(2);
+  },1000)
+
+  document.getElementById('showRewardAd').addEventListener('click', () => {
+    if (isAdReady(1)) {
+        showAd(1);
+    }
   })
+
+  document.getElementById('showInterstitialAd').addEventListener('click', () => {
+    if (isAdReady(2)) {
+        showAd(2);
+    }
+  })
+
+  function createAd(type) {
+    window.client.createGameAd(type, "TT001");
+  }
+
+  function isAdReady(type) {
+    return window.client.isGameAdReady(type, "TT001");
+  }
+
+  function showAd(type) {
+    window.client.showGameAd(type, "TT001");
+  }
+
+
 </script>
 </html>
