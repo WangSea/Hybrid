@@ -4,12 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+	<script src="https://unpkg.com/vconsole/dist/vconsole.min.js"></script>
 </head>
 <body>
 <button id="showRewardAd">showRewardAd</button>
 <button id="showInterstitialAd">showInterstitialAd</button>
 </body>
 <script>
+  new window.VConsole();
+
   // 加载激励视频广告
   createAd(1);
   // 延时1s后加载插屏广告（延时1s，同时加载会出现异常）
@@ -47,11 +50,7 @@
 
   // 广告是否完整播放
   function onAdPlayCompleted(isPlaySuccess) {
-	if (isPlaySuccess){
-		alert("success")
-	} else {
-		alert("fail")
-	}
+	console.log(isPlaySuccess)
   }
 
 
