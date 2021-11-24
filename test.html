@@ -12,11 +12,12 @@
 <script>
   // 加载激励视频广告
   createAd(1);
-  // 延时1s后加载插屏广告
+  // 延时1s后加载插屏广告（延时1s，同时加载会出现异常）
   setTimeout(function(){
     createAd(2);
   },1000)
 
+  // 激励视频广告需要控制播放间隔 建议间隔在3-5分钟，激励视频冷却时间内可以播放插屏广告
   document.getElementById('showRewardAd').addEventListener('click', () => {
     if (isAdReady(1)) {
         showAd(1);
@@ -29,16 +30,28 @@
     }
   })
 
+  // 加载广告 type: 1-激励视频广告 2-插屏广告
   function createAd(type) {
     window.client.createGameAd(type, "TT001");
   }
 
+  // 检查广告是否准备好
   function isAdReady(type) {
     return window.client.isGameAdReady(type, "TT001");
   }
 
+  // 展示广告
   function showAd(type) {
     window.client.showGameAd(type, "TT001");
+  }
+
+  // 广告是否完整播放
+  function onAdPlayCompleted(isPlaySuccess) {
+	if (isPlaySuccess){
+		alert("success")
+	} else {
+		alert("fail")
+	}
   }
 
 
